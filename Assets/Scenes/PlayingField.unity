@@ -1037,6 +1037,9 @@ MonoBehaviour:
   jumpHeight: 1
   gravityValue: -9.81
   jumped: 0
+  attackDelay: 1
+  timeSinceLastAttack: 1
+  hurtBox: {fileID: 0}
 --- !u!143 &2110780728
 CharacterController:
   m_ObjectHideFlags: 0
