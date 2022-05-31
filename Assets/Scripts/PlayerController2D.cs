@@ -23,7 +23,7 @@ public class PlayerController2D : MonoBehaviour
   private float attackDelay = 1f;
 
   [SerializeField]
-  private float timeSinceLastAttack = 1f;
+  private float timeSinceLastAttack = 0f;
 
   [SerializeField]
   private Vector3 startPos;
@@ -41,14 +41,19 @@ public class PlayerController2D : MonoBehaviour
 
   private float distToGround;
 
+  void Awake()
+  {
+    animator = this.gameObject.GetComponent<Animator>();
+    rb = GetComponent<Rigidbody2D>();
+    bc = GetComponent<CapsuleCollider2D>();
+  }
+
   // Start is called before the first frame update
   void Start()
   {
     Debug.Log("START POS IS " + startPos);
 
-    animator = gameObject.GetComponent<Animator>();
-    rb = GetComponent<Rigidbody2D>();
-    bc = GetComponent<CapsuleCollider2D>();
+
     distToGround = bc.bounds.extents.y;
     // animator.runtimeAnimatorController.
     // this.gameObject.transform.position = startPos;
@@ -63,6 +68,7 @@ public class PlayerController2D : MonoBehaviour
 
   void FixedUpdate()
   {
+    timeSinceLastAttack += Time.deltaTime;
     Move();
   }
 
@@ -83,11 +89,20 @@ public class PlayerController2D : MonoBehaviour
     return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
   }
 
+  // Animator Helpers
+
   // Used at end of death event to make sure player is stuck on death animation.
   private void SetAnimatorInactive()
   {
     animator.enabled = false;
   }
+
+  private void SetAttackingFalse()
+  {
+    animator.SetBool("isAttack", false);
+  }
+
+
 
   /** PUBLIC HELPERS **/
 
@@ -102,8 +117,19 @@ public class PlayerController2D : MonoBehaviour
     {
       transform.rotation = new Quaternion(0, 180, 0, 1);
     }
-    animator.SetFloat("Speed", Mathf.Abs(movementInput.x));
+    animator.SetFloat("speed", Mathf.Abs(movementInput.x));
     // Debug.Log("MOVEMENT INPUT:" + movementInput);
+  }
+
+  public void OnAttack(InputAction.CallbackContext ctx)
+  {
+    Debug.Log("ATTACK");
+    if (timeSinceLastAttack >= attackDelay)
+    {
+      timeSinceLastAttack = 0f;
+      animator.SetBool("isAttack", true);
+      // animator.SetBool("isAttack", false);
+    }
   }
 
   public void SetStartPos(Vector3 pos)
