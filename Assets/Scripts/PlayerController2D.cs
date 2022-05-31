@@ -35,7 +35,7 @@ public class PlayerController2D : MonoBehaviour
 
   private Rigidbody2D rb;
 
-  private BoxCollider2D bc;
+  private CapsuleCollider2D bc;
 
   private Vector2 movementInput = Vector2.zero;
 
@@ -48,7 +48,7 @@ public class PlayerController2D : MonoBehaviour
 
     animator = gameObject.GetComponent<Animator>();
     rb = GetComponent<Rigidbody2D>();
-    bc = GetComponent<BoxCollider2D>();
+    bc = GetComponent<CapsuleCollider2D>();
     distToGround = bc.bounds.extents.y;
     // animator.runtimeAnimatorController.
     // this.gameObject.transform.position = startPos;
@@ -68,6 +68,8 @@ public class PlayerController2D : MonoBehaviour
 
 
   /** PRIVATE HELPERS **/
+
+  // Reads input from OnMove calllback. 
   private void Move()
   {
     var curPos = rb.transform.position;
@@ -101,6 +103,7 @@ public class PlayerController2D : MonoBehaviour
       transform.rotation = new Quaternion(0, 180, 0, 1);
     }
     animator.SetFloat("Speed", Mathf.Abs(movementInput.x));
+    // Debug.Log("MOVEMENT INPUT:" + movementInput);
   }
 
   public void SetStartPos(Vector3 pos)
