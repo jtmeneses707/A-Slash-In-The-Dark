@@ -35,12 +35,33 @@ public class PlayerController : MonoBehaviour
   [SerializeField]
   private BoxCollider hurtBox;
 
+  [SerializeField]
+  private Vector3 startPos;
+
+  // private void Awake()
+  // {
+  //   Debug.Log(this.gameObject.transform.position = new Vector3(15f, 15f, 15f));
+  // }
 
   private void Start()
   {
+    Debug.Log("START POS IS " + startPos);
+    // this.gameObject.transform.position = startPos;
     controller = gameObject.GetComponent<CharacterController>();
+    // controller.enabled = false;
+    // transform.position = new Vector3(15f, -7f, 0f);
+    // controller.enabled = true;
+    // this.gameObject.transform.position = new Vector3(15f, 15, 15f);
+    Debug.Log(this.controller.transform.position);
+    // controller.transform.position = (new Vector3(15f, 15f, 15f));
+
     // var t = GetComponent<PlayerInput>().playerIndex;
     // Debug.Log("NEW INDEX" + t);
+  }
+
+  public void SetStartPos(Vector3 pos)
+  {
+    startPos = pos;
   }
 
   public void OnMove(InputAction.CallbackContext ctx)
@@ -88,6 +109,7 @@ public class PlayerController : MonoBehaviour
 
   void Update()
   {
+    this.transform.position = new Vector3(15f, 15f, 15f);
     timeSinceLastAttack += Time.deltaTime;
     groundedPlayer = controller.isGrounded;
     if (groundedPlayer && playerVelocity.y < 0)

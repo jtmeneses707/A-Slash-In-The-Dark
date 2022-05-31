@@ -22,7 +22,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4307645769234814884
 Transform:
   m_ObjectHideFlags: 0
@@ -161,6 +161,7 @@ MonoBehaviour:
   attackDelay: 1
   timeSinceLastAttack: 1
   hurtBox: {fileID: 6133802947686832277}
+  startPos: {x: 0, y: 0, z: 0}
 --- !u!23 &4307645769234814905
 MeshRenderer:
   m_ObjectHideFlags: 0
