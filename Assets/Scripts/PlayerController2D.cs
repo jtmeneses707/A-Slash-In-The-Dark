@@ -81,6 +81,12 @@ public class PlayerController2D : MonoBehaviour
     return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
   }
 
+  // Used at end of death event to make sure player is stuck on death animation.
+  private void SetAnimatorInactive()
+  {
+    animator.enabled = false;
+  }
+
   /** PUBLIC HELPERS **/
 
   public void OnMove(InputAction.CallbackContext ctx)
