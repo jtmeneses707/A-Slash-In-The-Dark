@@ -202,6 +202,11 @@ public class PlayerController2D : MonoBehaviour
     Destroy(rb);
   }
 
+  public bool IsDead()
+  {
+    return isDead;
+  }
+
 
   // Used to manually move character left. 
   // Useful for animations or intro screen.

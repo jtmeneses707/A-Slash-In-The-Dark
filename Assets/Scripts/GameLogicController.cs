@@ -60,6 +60,8 @@ public class GameLogicController : MonoBehaviour
   [SerializeField]
   private float initialThunderWarning;
 
+  private bool hasPlayedThunderWarning = false;
+
 
 
 
@@ -125,15 +127,39 @@ public class GameLogicController : MonoBehaviour
     {
       print("IN PLAY MODE");
       totalRoundTime += Time.fixedDeltaTime;
+
+      foreach (var player in players)
+      {
+        if (player.GetComponent<PlayerController2D>().IsDead())
+        {
+          ProgressState();
+        }
+      }
+
       if (totalRoundTime >= randomRoundTime)
       {
         // Progress state if round has finished.
+        // State will progress iin other cases such as players hitting each other.
         ProgressState();
       }
       if (totalRoundTime >= initialThunderWarning)
       {
-        announcer.volume = 0.6f;
-        announcer.PlayOneShot(clips[5]);
+        if (!hasPlayedThunderWarning)
+        {
+          announcer.volume = 0.5f;
+          announcer.PlayOneShot(clips[5]);
+          announcer.volume = 1f;
+          hasPlayedThunderWarning = true;
+        }
+      }
+    }
+
+    if (curState == State.Results)
+    {
+      foreach (var player in players)
+      {
+        player.GetComponent<CapsuleCollider2D>().enabled = false;
+        // player.
       }
     }
   }
