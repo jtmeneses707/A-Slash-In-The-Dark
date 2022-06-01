@@ -142,15 +142,19 @@ public class PlayerController2D : MonoBehaviour
 
   public void OnMove(InputAction.CallbackContext ctx)
   {
-    movementInput = ctx.ReadValue<Vector2>();
-    if (movementInput.x > 0)
+    if (!isDead)
     {
-      transform.rotation = new Quaternion(0, 0, 0, 1);
+      movementInput = ctx.ReadValue<Vector2>();
+      if (movementInput.x > 0)
+      {
+        transform.rotation = new Quaternion(0, 0, 0, 1);
+      }
+      else if (movementInput.x < 0)
+      {
+        transform.rotation = new Quaternion(0, 180, 0, 1);
+      }
     }
-    else if (movementInput.x < 0)
-    {
-      transform.rotation = new Quaternion(0, 180, 0, 1);
-    }
+
     animator.SetFloat("speed", Mathf.Abs(movementInput.x));
     // Debug.Log("MOVEMENT INPUT:" + movementInput);
   }
@@ -158,14 +162,18 @@ public class PlayerController2D : MonoBehaviour
   public void OnAttack(InputAction.CallbackContext ctx)
   {
     Debug.Log("ATTACK");
-    if (timeSinceLastAttack >= attackDelay)
+    if (!isDead)
     {
-      var currentAudioScale = audioSource.volume;
-      audioSource.PlayOneShot(slashes[Random.Range(0, slashes.Length)]);
-      timeSinceLastAttack = 0f;
-      animator.SetBool("isAttack", true);
-      // animator.SetBool("isAttack", false);
+      if (timeSinceLastAttack >= attackDelay)
+      {
+        var currentAudioScale = audioSource.volume;
+        audioSource.PlayOneShot(slashes[Random.Range(0, slashes.Length)]);
+        timeSinceLastAttack = 0f;
+        animator.SetBool("isAttack", true);
+        // animator.SetBool("isAttack", false);
+      }
     }
+
   }
 
   public void SetStartPos(Vector3 pos)
