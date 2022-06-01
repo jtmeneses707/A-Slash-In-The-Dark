@@ -42,7 +42,7 @@ public class PlayerController2D : MonoBehaviour
 
   private float distToGround;
 
-  [SerializeField] private AudioClip[] footsteps;
+  [SerializeField] private AudioClip[] footsteps, slashes, hurts;
 
   [SerializeField]
   private float timeBetweenEachFootstep = 1f;
@@ -95,7 +95,6 @@ public class PlayerController2D : MonoBehaviour
     var move = new Vector3(movementInput.x, 0);
     var newPos = curPos + (Time.fixedDeltaTime * playerSpeed * move);
     rb.MovePosition(newPos);
-    Debug.Log("MAG" + rb.velocity.magnitude);
     if (Mathf.Abs(move.x) > 0)
     {
       currentTimeBetweenFootstep += Time.fixedDeltaTime;
@@ -103,7 +102,12 @@ public class PlayerController2D : MonoBehaviour
     if (currentTimeBetweenFootstep >= timeBetweenEachFootstep)
     {
       currentTimeBetweenFootstep = 0f;
-      audioSource.PlayOneShot(footsteps[(Random.Range(0, footsteps.Length))]);
+      // var firstStep = footsteps[0];
+      var index = Random.Range(1, footsteps.Length);
+      var clip = footsteps[index];
+      audioSource.PlayOneShot(clip);
+      footsteps[index] = footsteps[0];
+      footsteps[0] = clip;
     }
   }
 
@@ -149,6 +153,8 @@ public class PlayerController2D : MonoBehaviour
     Debug.Log("ATTACK");
     if (timeSinceLastAttack >= attackDelay)
     {
+      var currentAudioScale = audioSource.volume;
+      audioSource.PlayOneShot(slashes[Random.Range(0, slashes.Length)]);
       timeSinceLastAttack = 0f;
       animator.SetBool("isAttack", true);
       // animator.SetBool("isAttack", false);
