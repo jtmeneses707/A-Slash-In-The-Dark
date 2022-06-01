@@ -139,6 +139,7 @@ public class GameLogicController : MonoBehaviour
         foreach (var player in players)
         {
           player.GetComponent<PlayerController2D>().enabled = true;
+          player.GetComponent<PlayerController2D>().SetCanMove(true);
         }
       }
 
@@ -182,6 +183,7 @@ public class GameLogicController : MonoBehaviour
         foreach (var player in players)
         {
           player.GetComponent<PlayerController2D>().enabled = false;
+          player.GetComponent<PlayerController2D>().SetCanMove(false);
           player.GetComponent<Animator>().enabled = false;
         }
       }

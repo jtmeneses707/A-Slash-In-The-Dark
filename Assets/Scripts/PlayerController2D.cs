@@ -54,7 +54,7 @@ public class PlayerController2D : MonoBehaviour
   private AudioSource audioSource;
 
   [SerializeField]
-  private bool isDead = false;
+  private bool canMove = false;
 
   [SerializeField]
   private bool isMoveLeft = false;
@@ -63,7 +63,10 @@ public class PlayerController2D : MonoBehaviour
   private bool canAttack = false;
 
   [SerializeField]
-  public bool canMove = true;
+  private bool isDead = false;
+
+  // [SerializeField]
+  // public bool canMove = true;
 
 
 
@@ -101,7 +104,7 @@ public class PlayerController2D : MonoBehaviour
     // }
 
     timeSinceLastAttack += Time.deltaTime;
-    if (!isDead)
+    if (canMove)
     {
       Move();
     }
@@ -160,7 +163,7 @@ public class PlayerController2D : MonoBehaviour
 
   public void OnMove(InputAction.CallbackContext ctx)
   {
-    if (!isDead)
+    if (canMove)
     {
       movementInput = ctx.ReadValue<Vector2>();
       if (movementInput.x > 0)
@@ -180,7 +183,7 @@ public class PlayerController2D : MonoBehaviour
   public void OnAttack(InputAction.CallbackContext ctx)
   {
     Debug.Log("ATTACK");
-    if (!isDead && canAttack)
+    if (canMove && canAttack)
     {
       if (timeSinceLastAttack >= attackDelay)
       {
@@ -202,20 +205,31 @@ public class PlayerController2D : MonoBehaviour
   public void StartDeath()
   {
     audioSource.PlayOneShot(hurts[Random.Range(0, hurts.Length)]);
+    canMove = false;
     isDead = true;
     animator.SetBool("isHurt", isDead);
     // bc.enabled = false;
-    Destroy(rb);
+    // Destroy(rb);
   }
 
-  public bool IsDead()
+  public bool CanMove()
   {
-    return isDead;
+    return canMove;
+  }
+
+  public void SetCanMove(bool b)
+  {
+    canMove = b;
   }
 
   public void CanAttack()
   {
     canAttack = true;
+  }
+
+  public bool IsDead()
+  {
+    return isDead;
   }
 
 
