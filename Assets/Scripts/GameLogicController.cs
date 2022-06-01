@@ -186,12 +186,17 @@ public class GameLogicController : MonoBehaviour
         hasPlayedCurStateEvent = true;
         foreach (var player in players)
         {
-          player.GetComponent<PlayerController2D>().enabled = false;
+          // player.GetComponent<PlayerController2D>().enabled = false;
           player.GetComponent<PlayerController2D>().SetCanMove(false);
           player.GetComponent<Animator>().enabled = false;
         }
         StartCoroutine(ResultsAnim());
       }
+
+    }
+
+    if (curState == State.End)
+    {
 
     }
   }
@@ -311,6 +316,50 @@ public class GameLogicController : MonoBehaviour
       light.intensity = i;
       yield return new WaitForSecondsRealtime(0.05f);
     }
+    yield return new WaitForSecondsRealtime(1f);
+    foreach (var player in players)
+    {
+      var pc = player.GetComponent<PlayerController2D>();
+      pc.ZeroMovement();
+      player.GetComponent<Animator>().enabled = true;
+    }
+
+    GameObject leftPlayer, rightPlayer;
+    PlayerController2D lc, rc;
+    // Dynamically decide which players are left and right. 
+    if (players[0].transform.position.x > players[1].transform.position.x)
+    {
+      leftPlayer = players[1];
+      rightPlayer = players[0];
+    }
+    else
+    {
+      leftPlayer = players[0];
+      rightPlayer = players[1];
+    }
+
+    lc = leftPlayer.GetComponent<PlayerController2D>();
+    rc = rightPlayer.GetComponent<PlayerController2D>();
+
+    if ((lc.IsDead() == rc.IsDead()))
+    {
+      // print("GAME IS A TIE");
+      announcer.PlayOneShot(clips[7]);
+    }
+
+    else if (lc.IsDead())
+    {
+      // print("RIGHT WINS");
+      announcer.PlayOneShot(clips[8]);
+    }
+    else
+    {
+      announcer.PlayOneShot(clips[9]);
+    }
+
+    yield return new WaitForSecondsRealtime(2f);
+    ProgressState();
+
   }
 
   public State GetCurState()

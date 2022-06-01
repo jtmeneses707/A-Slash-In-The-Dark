@@ -232,6 +232,11 @@ public class PlayerController2D : MonoBehaviour
     return isDead;
   }
 
+  public void ZeroMovement()
+  {
+    movementInput = Vector2.zero;
+  }
+
 
   // Used to manually move character left. 
   // Useful for animations or intro screen.
