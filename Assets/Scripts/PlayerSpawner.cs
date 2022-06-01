@@ -31,6 +31,7 @@ public class PlayerSpawner : MonoBehaviour
 
   public void OnPlayerJoined(PlayerInput pi)
   {
+    _LogicController.AddPlayers(pi.gameObject);
     // _PlayerNum++;
     Debug.Log("PLAYER JOINED");
     if (_PlayerNum == 0)

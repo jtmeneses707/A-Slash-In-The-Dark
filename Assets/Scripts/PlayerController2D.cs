@@ -89,10 +89,11 @@ public class PlayerController2D : MonoBehaviour
 
   void FixedUpdate()
   {
-    if (isMoveLeft)
-    {
-      StartCoroutine(MoveLeftFromStage(2f, 4f));
-    }
+    // if (isMoveLeft)
+    // {
+    //   StartCoroutine(MoveRightFromStage(2f, 4f));
+    // }
+
     timeSinceLastAttack += Time.deltaTime;
     if (!isDead)
     {
@@ -214,6 +215,22 @@ public class PlayerController2D : MonoBehaviour
     movementInput = Vector2.zero;
     playerSpeed = origPlayerSpeed;
   }
+
+  // Used to manually move character left. 
+  // Useful for animations or intro screen.
+  public IEnumerator MoveRightFromStage(float speed, float time)
+  {
+    Debug.Log("MOVING RIGHT FROM STAGE");
+    var origPlayerSpeed = playerSpeed;
+    playerSpeed = speed;
+    movementInput = new Vector2(1f, 0f);
+
+    yield return new WaitForSecondsRealtime(time);
+    movementInput = Vector2.zero;
+    playerSpeed = origPlayerSpeed;
+  }
+
+
 
   // Helpers for InputAction callback function
 

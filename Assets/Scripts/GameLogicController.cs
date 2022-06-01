@@ -22,7 +22,7 @@ public class GameLogicController : MonoBehaviour
   private State curState = State.Join;
 
   [SerializeField]
-  private GameObject[] players;
+  private List<GameObject> players;
 
   [SerializeField]
   private AudioSource announcer;
@@ -35,6 +35,10 @@ public class GameLogicController : MonoBehaviour
   [SerializeField]
   private bool hasPlayedCurStateEvent = false;
 
+  private GameObject leftPlayer, rightPlayer;
+  private PlayerController2D lc, rc;
+
+
 
   // Start is called before the first frame update
   void Start()
@@ -43,7 +47,7 @@ public class GameLogicController : MonoBehaviour
   }
 
   // Update is called once per frame
-  void Update()
+  void FixedUpdate()
   {
 
     if (curState == State.Join)
@@ -62,7 +66,38 @@ public class GameLogicController : MonoBehaviour
     {
       if (!hasPlayedCurStateEvent)
       {
+
+        StartCoroutine(d());
         hasPlayedCurStateEvent = true;
+        // GameObject leftPlayer, rightPlayer;
+        // PlayerController2D left, right;
+        // // Dynamically decide which players are left and right. 
+        // if (players[0].transform.position.x > players[1].transform.position.x)
+        // {
+        //   leftPlayer = players[1];
+        //   rightPlayer = players[0];
+        // }
+        // else
+        // {
+        //   leftPlayer = players[0];
+        //   rightPlayer = players[1];
+        // }
+
+        // lc = leftPlayer.GetComponent<PlayerController2D>();
+        // rc = rightPlayer.GetComponent<PlayerController2D>();
+
+        // StartCoroutine(StartingB());
+
+        // Debug.Log("LEFT PLAYERS COORDS" + left.transform.position);
+        // Debug.Log("RIGHT PLAYERS COORDS" + right.transform.position);
+
+        // // Start walking players towards stage.
+        // StartCoroutine(left.MoveRightFromStage(2f, 4f));
+        // StartCoroutine(right.MoveLeftFromStage(2f, 4f));
+        // // StartCoroutine(StartingAnimation());
+        // hasPlayedCurStateEvent = true;
+
+
 
       }
       // TODO: PLAY STARTING ANIMATION.
@@ -74,6 +109,80 @@ public class GameLogicController : MonoBehaviour
 
   // Coroutines for animations and events. 
 
+  public void StartingAnim()
+  {
+    GameObject leftPlayer, rightPlayer;
+    PlayerController2D left, right;
+    // Dynamically decide which players are left and right. 
+    if (players[0].transform.position.x > players[1].transform.position.x)
+    {
+      leftPlayer = players[1];
+      rightPlayer = players[0];
+    }
+    else
+    {
+      leftPlayer = players[0];
+      rightPlayer = players[1];
+    }
+
+    left = leftPlayer.GetComponent<PlayerController2D>();
+    right = rightPlayer.GetComponent<PlayerController2D>();
+
+    Debug.Log("LEFT PLAYERS COORDS" + left.transform.position);
+    Debug.Log("RIGHT PLAYERS COORDS" + right.transform.position);
+
+    // Start walking players towards stage.
+    StartCoroutine(left.MoveRightFromStage(2f, 4f));
+    // StartCoroutine(right.MoveLeftFromStage(2f, 4f));
+  }
+
+  public IEnumerator StartingA()
+  {
+    yield return lc.MoveRightFromStage(2f, 4f);
+  }
+
+  public IEnumerator StartingB()
+  {
+    yield return rc.MoveRightFromStage(2f, 4f);
+    yield return StartingA();
+  }
+
+
+  public IEnumerator StartingAnimation()
+  {
+    GameObject leftPlayer, rightPlayer;
+    PlayerController2D left, right;
+    // Dynamically decide which players are left and right. 
+    if (players[0].transform.position.x > players[1].transform.position.x)
+    {
+      leftPlayer = players[1];
+      rightPlayer = players[0];
+    }
+    else
+    {
+      leftPlayer = players[0];
+      rightPlayer = players[1];
+    }
+
+    left = leftPlayer.GetComponent<PlayerController2D>();
+    right = rightPlayer.GetComponent<PlayerController2D>();
+    Debug.Log("LEFT PLAYERS COORDS" + left.transform.position);
+    Debug.Log("RIGHT PLAYERS COORDS" + right.transform.position);
+    // yield return StartCoroutine(left.MoveRightFromStage(2f, 4f));
+    // yield return new WaitForSeconds(5f);
+    // Debug.Log("STARTING RIGHT COROUTINE");
+    // yield return StartCoroutine(right.MoveLeftFromStage(2f, 4f));
+
+    yield return StartCoroutine(left.MoveRightFromStage(2f, 4f));
+    // yield return lc;
+    Debug.Log("FINISHED LC");
+    // Coroutine rc = StartCoroutine(right.MoveLeftFromStage(2f, 4f));
+    // yield return rc;
+
+    // yield return lc;
+    // yield return rc;
+
+  }
 
   public State GetCurState()
   {
@@ -118,5 +227,30 @@ public class GameLogicController : MonoBehaviour
   {
     announcer.Stop();
     announcer.PlayOneShot(clips[2]);
+  }
+
+
+  public void AddPlayers(GameObject player)
+  {
+    players.Add(player);
+    Debug.Log("ADDED NEW PLAYER. SIZE IS " + players.Count);
+  }
+
+  IEnumerator First() { yield return new WaitForSeconds(1f); }
+  IEnumerator Second() { yield return new WaitForSeconds(2f); }
+  IEnumerator Third() { yield return new WaitForSeconds(3f); }
+
+  IEnumerator d()
+  {
+    Coroutine a = StartCoroutine(First());
+    Coroutine b = StartCoroutine(Second());
+    Coroutine c = StartCoroutine(Third());
+
+    //wait until all of them are over
+    yield return a;
+    yield return b;
+    yield return c;
+
+    print("all over");
   }
 }
