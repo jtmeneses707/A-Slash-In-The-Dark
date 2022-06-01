@@ -6,11 +6,11 @@ public class PlayerAttack : MonoBehaviour
 {
   private void OnTriggerEnter2D(Collider2D other)
   {
-    Debug.Log("HIT");
-    // if (other.CompareTag("Player"))
-    // {
-    //   Debug.Log("HIT PLAYER");
-    // }
+    // Debug.Log("HIT");
+    if (other.CompareTag("Player"))
+    {
+      Debug.Log("HIT PLAYER");
+    }
   }
 
 }
