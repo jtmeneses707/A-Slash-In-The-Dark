@@ -65,6 +65,9 @@ public class PlayerController2D : MonoBehaviour
   [SerializeField]
   private bool isDead = false;
 
+  public bool reset;
+  public bool cont;
+
   // [SerializeField]
   // public bool canMove = true;
 
@@ -195,6 +198,17 @@ public class PlayerController2D : MonoBehaviour
       }
     }
 
+  }
+
+  public void OnReset(InputAction.CallbackContext ctx)
+  {
+    reset = ctx.ReadValueAsButton();
+  }
+
+  public void OnContinue(InputAction.CallbackContext ctx)
+  {
+    print("PRESSED CONTINUE");
+    cont = ctx.ReadValueAsButton();
   }
 
   public void SetStartPos(Vector3 pos)

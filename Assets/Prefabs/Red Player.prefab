@@ -76,6 +76,7 @@ MonoBehaviour:
   attackDelay: 1
   timeSinceLastAttack: 1
   startPos: {x: 0, y: 0, z: 0}
+  movementInput: {x: 0, y: 0}
   footsteps:
   - {fileID: 8300000, guid: 908e21513b8777c4291f8ef71ffcc1f9, type: 3}
   - {fileID: 8300000, guid: 8e40cc008ffba494795c885f0c0c8541, type: 3}
@@ -86,7 +87,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 11ab07c64630dee4d8bc6c153fd17b20, type: 3}
   timeBetweenEachFootstep: 0.33
   currentTimeBetweenFootstep: 0
+  canMove: 0
+  isMoveLeft: 0
+  canAttack: 0
   isDead: 0
+  reset: 0
+  cont: 0
 --- !u!114 &602780120769091895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +154,54 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 75a50df2-1d20-4a20-9876-265cf5d329e3
     m_ActionName: Player/Attack[/Keyboard/f,/DualShock4GamepadHID/buttonWest,/XInputControllerWindows/buttonWest]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 602780120769091894}
+        m_TargetAssemblyTypeName: PlayerController2D, Assembly-CSharp
+        m_MethodName: OnReset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 890cb7ee-7030-46ab-aab6-5de01c1ebacb
+    m_ActionName: Player/Reset[/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 602780120769091894}
+        m_TargetAssemblyTypeName: PlayerController2D, Assembly-CSharp
+        m_MethodName: OnContinue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+    m_ActionId: 06c9c6a7-8fcd-4814-ba0a-5ac3605345cf
+    m_ActionName: Player/Quit[/XInputControllerWindows/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 602780120769091894}
+        m_TargetAssemblyTypeName: PlayerController2D, Assembly-CSharp
+        m_MethodName: OnContinue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 69f13434-19bc-49a9-86ad-e7dd450a0d10
+    m_ActionName: Player/Continue[/XInputControllerWindows/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Controller
   m_DefaultActionMap: Player
