@@ -59,6 +59,12 @@ public class PlayerController2D : MonoBehaviour
   [SerializeField]
   private bool isMoveLeft = false;
 
+  [SerializeField]
+  private bool canAttack = false;
+
+  [SerializeField]
+  public bool canMove = true;
+
 
 
   void Awake()
@@ -174,7 +180,7 @@ public class PlayerController2D : MonoBehaviour
   public void OnAttack(InputAction.CallbackContext ctx)
   {
     Debug.Log("ATTACK");
-    if (!isDead)
+    if (!isDead && canAttack)
     {
       if (timeSinceLastAttack >= attackDelay)
       {
@@ -198,13 +204,18 @@ public class PlayerController2D : MonoBehaviour
     audioSource.PlayOneShot(hurts[Random.Range(0, hurts.Length)]);
     isDead = true;
     animator.SetBool("isHurt", isDead);
-    bc.enabled = false;
+    // bc.enabled = false;
     Destroy(rb);
   }
 
   public bool IsDead()
   {
     return isDead;
+  }
+
+  public void CanAttack()
+  {
+    canAttack = true;
   }
 
 

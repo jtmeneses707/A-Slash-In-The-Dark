@@ -85,12 +85,21 @@ public class GameLogicController : MonoBehaviour
         announcer.PlayOneShot(clips[0]);
         playedPressToJoin = true;
       }
+      foreach (var player in players)
+      {
+        player.GetComponent<PlayerController2D>().enabled = false;
+      }
+
     }
 
     if (curState == State.Start)
     {
       if (!hasPlayedCurStateEvent)
       {
+        foreach (var player in players)
+        {
+          player.GetComponent<PlayerController2D>().enabled = false;
+        }
         hasPlayedCurStateEvent = true;
         StartCoroutine(StartingAnim());
         // GameObject leftPlayer, rightPlayer;
@@ -125,6 +134,14 @@ public class GameLogicController : MonoBehaviour
 
     if (curState == State.Play)
     {
+      if (!hasPlayedCurStateEvent)
+      {
+        foreach (var player in players)
+        {
+          player.GetComponent<PlayerController2D>().enabled = true;
+        }
+      }
+
       print("IN PLAY MODE");
       totalRoundTime += Time.fixedDeltaTime;
 
@@ -150,17 +167,25 @@ public class GameLogicController : MonoBehaviour
           announcer.PlayOneShot(clips[5]);
           announcer.volume = 1f;
           hasPlayedThunderWarning = true;
+          foreach (var player in players)
+          {
+            player.GetComponent<PlayerController2D>().CanAttack();
+          }
         }
       }
     }
 
     if (curState == State.Results)
     {
-      foreach (var player in players)
+      if (!hasPlayedCurStateEvent)
       {
-        player.GetComponent<CapsuleCollider2D>().enabled = false;
-        // player.
+        foreach (var player in players)
+        {
+          player.GetComponent<PlayerController2D>().enabled = false;
+          player.GetComponent<Animator>().enabled = false;
+        }
       }
+
     }
   }
 
