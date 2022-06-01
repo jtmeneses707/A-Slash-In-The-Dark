@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Experimental.Rendering.Universal;
 public class GameLogicController : MonoBehaviour
 {
   public enum State
@@ -35,15 +36,23 @@ public class GameLogicController : MonoBehaviour
   [SerializeField]
   private bool hasPlayedCurStateEvent = false;
 
-  private GameObject leftPlayer, rightPlayer;
-  private PlayerController2D lc, rc;
+  [SerializeField]
+  private GameObject lantern;
 
+  [SerializeField]
+  private GameObject globalLight;
+
+  [SerializeField]
+  private float startingGlobalIntensity;
+
+  [SerializeField]
+  private Sprite brokenLanternSprite;
 
 
   // Start is called before the first frame update
   void Start()
   {
-
+    startingGlobalIntensity = globalLight.GetComponent<Light2D>().intensity;
   }
 
   // Update is called once per frame
@@ -67,8 +76,8 @@ public class GameLogicController : MonoBehaviour
       if (!hasPlayedCurStateEvent)
       {
 
-        StartCoroutine(d());
         hasPlayedCurStateEvent = true;
+        StartCoroutine(StartingAnim());
         // GameObject leftPlayer, rightPlayer;
         // PlayerController2D left, right;
         // // Dynamically decide which players are left and right. 
@@ -109,79 +118,100 @@ public class GameLogicController : MonoBehaviour
 
   // Coroutines for animations and events. 
 
-  public void StartingAnim()
+  // public void StartingAnim()
+  // {
+  //   GameObject leftPlayer, rightPlayer;
+  //   PlayerController2D left, right;
+  //   // Dynamically decide which players are left and right. 
+  //   if (players[0].transform.position.x > players[1].transform.position.x)
+  //   {
+  //     leftPlayer = players[1];
+  //     rightPlayer = players[0];
+  //   }
+  //   else
+  //   {
+  //     leftPlayer = players[0];
+  //     rightPlayer = players[1];
+  //   }
+
+  //   left = leftPlayer.GetComponent<PlayerController2D>();
+  //   right = rightPlayer.GetComponent<PlayerController2D>();
+
+  //   Debug.Log("LEFT PLAYERS COORDS" + left.transform.position);
+  //   Debug.Log("RIGHT PLAYERS COORDS" + right.transform.position);
+
+  //   // Start walking players towards stage.
+  //   StartCoroutine(left.MoveRightFromStage(2f, 4f));
+  //   // StartCoroutine(right.MoveLeftFromStage(2f, 4f));
+  // }
+
+  // public IEnumerator StartingA()
+  // {
+  //   yield return lc.MoveRightFromStage(2f, 4f);
+  // }
+
+  // public IEnumerator StartingB()
+  // {
+  //   yield return rc.MoveRightFromStage(2f, 4f);
+  //   yield return StartingA();
+  // }
+
+
+  // public IEnumerator StartingAnimation()
+  // {
+  //   GameObject leftPlayer, rightPlayer;
+  //   PlayerController2D left, right;
+  //   // Dynamically decide which players are left and right. 
+  //   if (players[0].transform.position.x > players[1].transform.position.x)
+  //   {
+  //     leftPlayer = players[1];
+  //     rightPlayer = players[0];
+  //   }
+  //   else
+  //   {
+  //     leftPlayer = players[0];
+  //     rightPlayer = players[1];
+  //   }
+
+  //   left = leftPlayer.GetComponent<PlayerController2D>();
+  //   right = rightPlayer.GetComponent<PlayerController2D>();
+  //   Debug.Log("LEFT PLAYERS COORDS" + left.transform.position);
+  //   Debug.Log("RIGHT PLAYERS COORDS" + right.transform.position);
+  //   // yield return StartCoroutine(left.MoveRightFromStage(2f, 4f));
+  //   // yield return new WaitForSeconds(5f);
+  //   // Debug.Log("STARTING RIGHT COROUTINE");
+  //   // yield return StartCoroutine(right.MoveLeftFromStage(2f, 4f));
+
+  //   yield return StartCoroutine(left.MoveRightFromStage(2f, 4f));
+  //   // yield return lc;
+  //   Debug.Log("FINISHED LC");
+  //   // Coroutine rc = StartCoroutine(right.MoveLeftFromStage(2f, 4f));
+  //   // yield return rc;
+
+  //   // yield return lc;
+  //   // yield return rc;
+
+  // }
+
+  public IEnumerator StartingAnim()
   {
-    GameObject leftPlayer, rightPlayer;
-    PlayerController2D left, right;
-    // Dynamically decide which players are left and right. 
-    if (players[0].transform.position.x > players[1].transform.position.x)
+    yield return new WaitForSecondsRealtime(2f);
+    announcer.PlayOneShot(clips[3]);
+    // lantern.GetComponent<Light2D>().intensity = 0f;
+
+
+    yield return new WaitForSecondsRealtime(0.1f);
+    lantern.GetComponent<SpriteRenderer>().sprite = brokenLanternSprite;
+    var lanternLight = lantern.GetComponentInChildren<Light2D>();
+    var intensity = lanternLight.intensity;
+    for (var i = intensity; i > 0; i -= 0.1f)
     {
-      leftPlayer = players[1];
-      rightPlayer = players[0];
+      lanternLight.intensity = i;
+      yield return new WaitForSecondsRealtime(.1f);
     }
-    else
-    {
-      leftPlayer = players[0];
-      rightPlayer = players[1];
-    }
-
-    left = leftPlayer.GetComponent<PlayerController2D>();
-    right = rightPlayer.GetComponent<PlayerController2D>();
-
-    Debug.Log("LEFT PLAYERS COORDS" + left.transform.position);
-    Debug.Log("RIGHT PLAYERS COORDS" + right.transform.position);
-
-    // Start walking players towards stage.
-    StartCoroutine(left.MoveRightFromStage(2f, 4f));
-    // StartCoroutine(right.MoveLeftFromStage(2f, 4f));
-  }
-
-  public IEnumerator StartingA()
-  {
-    yield return lc.MoveRightFromStage(2f, 4f);
-  }
-
-  public IEnumerator StartingB()
-  {
-    yield return rc.MoveRightFromStage(2f, 4f);
-    yield return StartingA();
-  }
-
-
-  public IEnumerator StartingAnimation()
-  {
-    GameObject leftPlayer, rightPlayer;
-    PlayerController2D left, right;
-    // Dynamically decide which players are left and right. 
-    if (players[0].transform.position.x > players[1].transform.position.x)
-    {
-      leftPlayer = players[1];
-      rightPlayer = players[0];
-    }
-    else
-    {
-      leftPlayer = players[0];
-      rightPlayer = players[1];
-    }
-
-    left = leftPlayer.GetComponent<PlayerController2D>();
-    right = rightPlayer.GetComponent<PlayerController2D>();
-    Debug.Log("LEFT PLAYERS COORDS" + left.transform.position);
-    Debug.Log("RIGHT PLAYERS COORDS" + right.transform.position);
-    // yield return StartCoroutine(left.MoveRightFromStage(2f, 4f));
-    // yield return new WaitForSeconds(5f);
-    // Debug.Log("STARTING RIGHT COROUTINE");
-    // yield return StartCoroutine(right.MoveLeftFromStage(2f, 4f));
-
-    yield return StartCoroutine(left.MoveRightFromStage(2f, 4f));
-    // yield return lc;
-    Debug.Log("FINISHED LC");
-    // Coroutine rc = StartCoroutine(right.MoveLeftFromStage(2f, 4f));
-    // yield return rc;
-
-    // yield return lc;
-    // yield return rc;
-
+    // yield return new WaitForSecondsRealtime(2f);
+    globalLight.GetComponent<Light2D>().intensity = 0f;
+    yield return null;
   }
 
   public State GetCurState()
@@ -234,23 +264,5 @@ public class GameLogicController : MonoBehaviour
   {
     players.Add(player);
     Debug.Log("ADDED NEW PLAYER. SIZE IS " + players.Count);
-  }
-
-  IEnumerator First() { yield return new WaitForSeconds(1f); }
-  IEnumerator Second() { yield return new WaitForSeconds(2f); }
-  IEnumerator Third() { yield return new WaitForSeconds(3f); }
-
-  IEnumerator d()
-  {
-    Coroutine a = StartCoroutine(First());
-    Coroutine b = StartCoroutine(Second());
-    Coroutine c = StartCoroutine(Third());
-
-    //wait until all of them are over
-    yield return a;
-    yield return b;
-    yield return c;
-
-    print("all over");
   }
 }

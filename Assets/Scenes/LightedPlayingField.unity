@@ -804,7 +804,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c678dca85ada2f34b9d710d8ff22de5c, type: 3}
   - {fileID: 8300000, guid: 61ba2a2c2de65834f94bef2a2df17189, type: 3}
   - {fileID: 8300000, guid: b5f3ec6e4f0439a4798493cb198e34d9, type: 3}
+  - {fileID: 8300000, guid: bd5de786d18775d4f987e1b4a800e5ef, type: 3}
   hasPlayedCurStateEvent: 0
+  lantern: {fileID: 506191676}
+  globalLight: {fileID: 357335475}
+  startingGlobalIntensity: 0
+  brokenLanternSprite: {fileID: 21300000, guid: 566076d25a983c5438b39d99d7abe724, type: 3}
 --- !u!114 &743803958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -824,8 +829,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 61ba2a2c2de65834f94bef2a2df17189, type: 3}
   - {fileID: 8300000, guid: b5f3ec6e4f0439a4798493cb198e34d9, type: 3}
   _spawnPoints:
-  - {x: -22, y: -14.67, z: 0}
-  - {x: 22, y: -14.67, z: 0}
+  - {x: -16, y: -14.67, z: 0}
+  - {x: 16, y: -14.67, z: 0}
   _LogicController: {fileID: 743803957}
 --- !u!1 &916377360
 GameObject:
