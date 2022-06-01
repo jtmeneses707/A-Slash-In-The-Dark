@@ -813,7 +813,7 @@ MonoBehaviour:
   globalLight: {fileID: 357335475}
   startingGlobalIntensity: 0
   brokenLanternSprite: {fileID: 21300000, guid: 566076d25a983c5438b39d99d7abe724, type: 3}
-  baseRoundTime: 7
+  baseRoundTime: 3
   totalRoundTime: 0
   randomRoundTime: 0
   initialThunderWarning: 0

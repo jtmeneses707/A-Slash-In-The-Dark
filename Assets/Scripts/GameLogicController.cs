@@ -160,6 +160,8 @@ public class GameLogicController : MonoBehaviour
         // State will progress iin other cases such as players hitting each other.
         ProgressState();
       }
+
+
       if (totalRoundTime >= initialThunderWarning)
       {
         if (!hasPlayedThunderWarning)
@@ -180,12 +182,14 @@ public class GameLogicController : MonoBehaviour
     {
       if (!hasPlayedCurStateEvent)
       {
+        hasPlayedCurStateEvent = true;
         foreach (var player in players)
         {
           player.GetComponent<PlayerController2D>().enabled = false;
           player.GetComponent<PlayerController2D>().SetCanMove(false);
           player.GetComponent<Animator>().enabled = false;
         }
+        StartCoroutine(ResultsAnim());
       }
 
     }
@@ -295,6 +299,17 @@ public class GameLogicController : MonoBehaviour
     yield return new WaitForSecondsRealtime(length);
     print("DONE WITH STARTING ANIM");
     ProgressState();
+  }
+
+  public IEnumerator ResultsAnim()
+  {
+    var light = globalLight.GetComponent<Light2D>();
+    var currentGlobalIntensity = light.intensity;
+    for (var i = currentGlobalIntensity; i < 0.6f; i += 0.05f)
+    {
+      light.intensity = i;
+      yield return new WaitForSecondsRealtime(0.05f);
+    }
   }
 
   public State GetCurState()
