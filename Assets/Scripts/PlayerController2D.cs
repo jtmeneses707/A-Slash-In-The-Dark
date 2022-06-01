@@ -91,13 +91,15 @@ public class PlayerController2D : MonoBehaviour
   {
     if (isMoveLeft)
     {
-      StartCoroutine(MoveLeftFromStage());
+      StartCoroutine(MoveLeftFromStage(2f, 4f));
     }
     timeSinceLastAttack += Time.deltaTime;
     if (!isDead)
     {
       Move();
     }
+
+    animator.SetFloat("speed", Mathf.Abs(movementInput.x));
 
   }
 
@@ -164,7 +166,7 @@ public class PlayerController2D : MonoBehaviour
       }
     }
 
-    animator.SetFloat("speed", Mathf.Abs(movementInput.x));
+
     // Debug.Log("MOVEMENT INPUT:" + movementInput);
   }
 
@@ -202,12 +204,13 @@ public class PlayerController2D : MonoBehaviour
 
   // Used to manually move character left. 
   // Useful for animations or intro screen.
-  public IEnumerator MoveLeftFromStage()
+  public IEnumerator MoveLeftFromStage(float speed, float time)
   {
     var origPlayerSpeed = playerSpeed;
-    playerSpeed = 3f;
+    playerSpeed = speed;
     movementInput = new Vector2(-1f, 0f);
-    yield return new WaitForSecondsRealtime(3f);
+
+    yield return new WaitForSecondsRealtime(time);
     movementInput = Vector2.zero;
     playerSpeed = origPlayerSpeed;
   }
