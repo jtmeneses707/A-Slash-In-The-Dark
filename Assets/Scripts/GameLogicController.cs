@@ -48,17 +48,32 @@ public class GameLogicController : MonoBehaviour
   [SerializeField]
   private Sprite brokenLanternSprite;
 
+  [SerializeField]
+  private float baseRoundTime;
+
+  [SerializeField]
+  private float totalRoundTime = 0f;
+
+  [SerializeField]
+  private float randomRoundTime;
+
+  [SerializeField]
+  private float initialThunderWarning;
+
+
+
 
   // Start is called before the first frame update
   void Start()
   {
     startingGlobalIntensity = globalLight.GetComponent<Light2D>().intensity;
+    randomRoundTime = baseRoundTime + Random.Range(0f, 5f);
+    initialThunderWarning = randomRoundTime - Random.Range(3f, 5f);
   }
 
   // Update is called once per frame
   void FixedUpdate()
   {
-
     if (curState == State.Join)
     {
       Debug.Log("JOIN PHASE");
@@ -68,14 +83,12 @@ public class GameLogicController : MonoBehaviour
         announcer.PlayOneShot(clips[0]);
         playedPressToJoin = true;
       }
-
     }
 
     if (curState == State.Start)
     {
       if (!hasPlayedCurStateEvent)
       {
-
         hasPlayedCurStateEvent = true;
         StartCoroutine(StartingAnim());
         // GameObject leftPlayer, rightPlayer;
@@ -105,11 +118,23 @@ public class GameLogicController : MonoBehaviour
         // StartCoroutine(right.MoveLeftFromStage(2f, 4f));
         // // StartCoroutine(StartingAnimation());
         // hasPlayedCurStateEvent = true;
-
-
-
       }
-      // TODO: PLAY STARTING ANIMATION.
+    }
+
+    if (curState == State.Play)
+    {
+      print("IN PLAY MODE");
+      totalRoundTime += Time.fixedDeltaTime;
+      if (totalRoundTime >= randomRoundTime)
+      {
+        // Progress state if round has finished.
+        ProgressState();
+      }
+      if (totalRoundTime >= initialThunderWarning)
+      {
+        announcer.volume = 0.6f;
+        announcer.PlayOneShot(clips[5]);
+      }
     }
   }
 
@@ -217,7 +242,6 @@ public class GameLogicController : MonoBehaviour
     yield return new WaitForSecondsRealtime(length);
     print("DONE WITH STARTING ANIM");
     ProgressState();
-    yield return null;
   }
 
   public State GetCurState()
