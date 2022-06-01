@@ -178,6 +178,7 @@ public class GameLogicController : MonoBehaviour
       }
     }
 
+
     if (curState == State.Results)
     {
       if (!hasPlayedCurStateEvent)
