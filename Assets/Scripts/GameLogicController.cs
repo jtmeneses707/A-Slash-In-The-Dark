@@ -211,6 +211,12 @@ public class GameLogicController : MonoBehaviour
     }
     // yield return new WaitForSecondsRealtime(2f);
     globalLight.GetComponent<Light2D>().intensity = 0f;
+    var clip = clips[4];
+    var length = clip.length;
+    announcer.PlayOneShot(clip);
+    yield return new WaitForSecondsRealtime(length);
+    print("DONE WITH STARTING ANIM");
+    ProgressState();
     yield return null;
   }
 

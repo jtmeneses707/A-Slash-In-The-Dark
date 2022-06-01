@@ -205,30 +205,31 @@ public class PlayerController2D : MonoBehaviour
 
   // Used to manually move character left. 
   // Useful for animations or intro screen.
-  public IEnumerator MoveLeftFromStage(float speed, float time)
-  {
-    var origPlayerSpeed = playerSpeed;
-    playerSpeed = speed;
-    movementInput = new Vector2(-1f, 0f);
+  // public IEnumerator MoveLeftFromStage(float speed, float time)
+  // {
+  //   var origPlayerSpeed = playerSpeed;
+  //   playerSpeed = speed;
+  //   movementInput = new Vector2(-1f, 0f);
 
-    yield return new WaitForSecondsRealtime(time);
-    movementInput = Vector2.zero;
-    playerSpeed = origPlayerSpeed;
-  }
+  //   yield return new WaitForSecondsRealtime(time);
+  //   movementInput = Vector2.zero;
+  //   playerSpeed = origPlayerSpeed;
+  // }
 
   // Used to manually move character left. 
   // Useful for animations or intro screen.
-  public IEnumerator MoveRightFromStage(float speed, float time)
-  {
-    Debug.Log("MOVING RIGHT FROM STAGE");
-    var origPlayerSpeed = playerSpeed;
-    playerSpeed = speed;
-    movementInput = new Vector2(1f, 0f);
 
-    yield return new WaitForSecondsRealtime(time);
-    movementInput = Vector2.zero;
-    playerSpeed = origPlayerSpeed;
-  }
+  // public IEnumerator MoveRightFromStage(float speed, float time)
+  // {
+  //   Debug.Log("MOVING RIGHT FROM STAGE");
+  //   var origPlayerSpeed = playerSpeed;
+  //   playerSpeed = speed;
+  //   movementInput = new Vector2(1f, 0f);
+
+  //   yield return new WaitForSecondsRealtime(time);
+  //   movementInput = Vector2.zero;
+  //   playerSpeed = origPlayerSpeed;
+  // }
 
 
 
