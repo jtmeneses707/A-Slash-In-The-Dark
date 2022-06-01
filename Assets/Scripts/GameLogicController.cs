@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Experimental.Rendering.Universal;
+
+[RequireComponent(typeof(SceneCommands))]
 public class GameLogicController : MonoBehaviour
 {
   public enum State
@@ -65,6 +67,8 @@ public class GameLogicController : MonoBehaviour
   [SerializeField]
   private Canvas canvas;
 
+  private SceneCommands sc;
+
 
 
   // Start is called before the first frame update
@@ -74,6 +78,7 @@ public class GameLogicController : MonoBehaviour
     startingGlobalIntensity = globalLight.GetComponent<Light2D>().intensity;
     randomRoundTime = baseRoundTime + Random.Range(0f, 5f);
     initialThunderWarning = randomRoundTime - Random.Range(3f, 5f);
+    sc = GetComponent<SceneCommands>();
   }
 
   // Update is called once per frame
@@ -207,6 +212,12 @@ public class GameLogicController : MonoBehaviour
         if (controller.reset)
         {
           print("RESET");
+          sc.Reset();
+        }
+        else if (controller.quit)
+        {
+          print("QUIT");
+          sc.Quit();
         }
       }
     }
