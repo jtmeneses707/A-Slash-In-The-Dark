@@ -38,6 +38,7 @@ public class PlayerController2D : MonoBehaviour
 
   private CapsuleCollider2D bc;
 
+  [SerializeField]
   private Vector2 movementInput = Vector2.zero;
 
   private float distToGround;
@@ -54,6 +55,10 @@ public class PlayerController2D : MonoBehaviour
 
   [SerializeField]
   private bool isDead = false;
+
+  [SerializeField]
+  private bool isMoveLeft = false;
+
 
 
   void Awake()
@@ -84,6 +89,10 @@ public class PlayerController2D : MonoBehaviour
 
   void FixedUpdate()
   {
+    if (isMoveLeft)
+    {
+      StartCoroutine(MoveLeftFromStage());
+    }
     timeSinceLastAttack += Time.deltaTime;
     if (!isDead)
     {
@@ -187,6 +196,20 @@ public class PlayerController2D : MonoBehaviour
     isDead = true;
     animator.SetBool("isHurt", isDead);
     bc.enabled = false;
+    Destroy(rb);
+  }
+
+
+  // Used to manually move character left. 
+  // Useful for animations or intro screen.
+  public IEnumerator MoveLeftFromStage()
+  {
+    var origPlayerSpeed = playerSpeed;
+    playerSpeed = 3f;
+    movementInput = new Vector2(-1f, 0f);
+    yield return new WaitForSecondsRealtime(3f);
+    movementInput = Vector2.zero;
+    playerSpeed = origPlayerSpeed;
   }
 
   // Helpers for InputAction callback function

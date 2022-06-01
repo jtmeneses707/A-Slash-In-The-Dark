@@ -540,7 +540,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 9.5
+  orthographic size: 10.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -754,7 +754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 0
-  m_MaxPlayerCount: -1
+  m_MaxPlayerCount: 2
   m_AllowJoining: 1
   m_JoinBehavior: 0
   m_PlayerJoinedEvent:
@@ -804,6 +804,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c678dca85ada2f34b9d710d8ff22de5c, type: 3}
   - {fileID: 8300000, guid: 61ba2a2c2de65834f94bef2a2df17189, type: 3}
   - {fileID: 8300000, guid: b5f3ec6e4f0439a4798493cb198e34d9, type: 3}
+  hasPlayedCurStateEvent: 0
 --- !u!114 &743803958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -823,8 +824,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 61ba2a2c2de65834f94bef2a2df17189, type: 3}
   - {fileID: 8300000, guid: b5f3ec6e4f0439a4798493cb198e34d9, type: 3}
   _spawnPoints:
-  - {x: -22, y: -14, z: 0}
-  - {x: 22, y: -14, z: 0}
+  - {x: -22, y: -14.67, z: 0}
+  - {x: 22, y: -14.67, z: 0}
   _LogicController: {fileID: 743803957}
 --- !u!1 &916377360
 GameObject:

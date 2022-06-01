@@ -32,6 +32,9 @@ public class GameLogicController : MonoBehaviour
 
   private bool playedPressToJoin = false;
 
+  [SerializeField]
+  private bool hasPlayedCurStateEvent = false;
+
 
   // Start is called before the first frame update
   void Start()
@@ -57,11 +60,19 @@ public class GameLogicController : MonoBehaviour
 
     if (curState == State.Start)
     {
+      if (!hasPlayedCurStateEvent)
+      {
+        hasPlayedCurStateEvent = true;
+
+      }
       // TODO: PLAY STARTING ANIMATION.
     }
   }
 
 
+
+
+  // Coroutines for animations and events. 
 
 
   public State GetCurState()
@@ -71,8 +82,14 @@ public class GameLogicController : MonoBehaviour
 
   public void ProgressState()
   {
+    // Reset hasPlayed anim to prepare for new anim. 
+    if (hasPlayedCurStateEvent)
+    {
+      hasPlayedCurStateEvent = false;
+    }
     switch (curState)
     {
+
       case State.Join:
         curState = State.Start;
         return;

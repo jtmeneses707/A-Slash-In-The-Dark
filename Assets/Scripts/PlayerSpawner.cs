@@ -45,6 +45,11 @@ public class PlayerSpawner : MonoBehaviour
     }
     pi.gameObject.transform.position = _spawnPoints[_PlayerNum];
     _PlayerNum++;
+    if (_PlayerNum == 2)
+    {
+      _LogicController.ProgressState();
+    }
+
 
     // pi.gameObject.transform.position = new Vector3(0, 0, 0);
     // pi.gameObject.SetActive(false);
