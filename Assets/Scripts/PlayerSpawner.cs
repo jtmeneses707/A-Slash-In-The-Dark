@@ -14,8 +14,11 @@ public class PlayerSpawner : MonoBehaviour
 
   [SerializeField]
   private Vector3[] _spawnPoints = {
-    new Vector3(-17f, -7f, 0f), new Vector3(17f, -7f, 0f)
+    new Vector3(-22f, -16f, 0f), new Vector3(22f, -16f, 0f)
   };
+
+  [SerializeField]
+  private GameLogicController _LogicController;
   void Start()
   {
     // var t = PlayerInput.Instantiate(_PlayerObject, -1, "Keyboard 1");
@@ -30,11 +33,19 @@ public class PlayerSpawner : MonoBehaviour
   {
     // _PlayerNum++;
     Debug.Log("PLAYER JOINED");
-    var characterController = pi.gameObject.GetComponent<CharacterController>();
-    characterController.enabled = false;
+    if (_PlayerNum == 0)
+    {
+      _LogicController.LeftPlayerHasJoined();
+    }
+
+    if (_PlayerNum == 1)
+    {
+      pi.gameObject.transform.rotation = new Quaternion(0, 180, 0, 1);
+      _LogicController.RightPlayerHasJoined();
+    }
     pi.gameObject.transform.position = _spawnPoints[_PlayerNum];
-    characterController.enabled = true;
     _PlayerNum++;
+
     // pi.gameObject.transform.position = new Vector3(0, 0, 0);
     // pi.gameObject.SetActive(false);
 

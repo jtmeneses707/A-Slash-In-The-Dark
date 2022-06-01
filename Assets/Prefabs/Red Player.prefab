@@ -86,6 +86,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 11ab07c64630dee4d8bc6c153fd17b20, type: 3}
   timeBetweenEachFootstep: 0.33
   currentTimeBetweenFootstep: 0
+  isDead: 0
 --- !u!114 &602780120769091895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +219,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
