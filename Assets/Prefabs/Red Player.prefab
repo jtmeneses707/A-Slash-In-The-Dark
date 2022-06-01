@@ -92,7 +92,7 @@ MonoBehaviour:
   canAttack: 0
   isDead: 0
   reset: 0
-  cont: 0
+  quit: 0
 --- !u!114 &602780120769091895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 602780120769091894}
         m_TargetAssemblyTypeName: PlayerController2D, Assembly-CSharp
-        m_MethodName: OnContinue
+        m_MethodName: OnQuit
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -187,19 +187,7 @@ MonoBehaviour:
     m_ActionId: 06c9c6a7-8fcd-4814-ba0a-5ac3605345cf
     m_ActionName: Player/Quit[/XInputControllerWindows/buttonNorth]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 602780120769091894}
-        m_TargetAssemblyTypeName: PlayerController2D, Assembly-CSharp
-        m_MethodName: OnContinue
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 69f13434-19bc-49a9-86ad-e7dd450a0d10
     m_ActionName: Player/Continue[/XInputControllerWindows/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 1

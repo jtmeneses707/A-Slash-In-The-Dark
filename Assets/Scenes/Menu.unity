@@ -482,7 +482,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PRESS THE NORTH BUTTON TO START
+  m_Text: PRESS THE NORTH BUTTON TO QUIT
 --- !u!222 &444228102
 CanvasRenderer:
   m_ObjectHideFlags: 0
