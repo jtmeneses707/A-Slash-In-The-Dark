@@ -82,7 +82,8 @@ MonoBehaviour:
   slashes:
   - {fileID: 8300000, guid: 41e0e7bb7a10ad249b84aac8abde08d4, type: 3}
   - {fileID: 8300000, guid: c2619c233e38ac240b8485b7210f8690, type: 3}
-  hurts: []
+  hurts:
+  - {fileID: 8300000, guid: 11ab07c64630dee4d8bc6c153fd17b20, type: 3}
   timeBetweenEachFootstep: 0.33
   currentTimeBetweenFootstep: 0
 --- !u!114 &602780120769091895

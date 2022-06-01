@@ -52,6 +52,9 @@ public class PlayerController2D : MonoBehaviour
 
   private AudioSource audioSource;
 
+  [SerializeField]
+  private bool isDead = false;
+
 
   void Awake()
   {
@@ -82,7 +85,11 @@ public class PlayerController2D : MonoBehaviour
   void FixedUpdate()
   {
     timeSinceLastAttack += Time.deltaTime;
-    Move();
+    if (!isDead)
+    {
+      Move();
+    }
+
   }
 
 
@@ -164,6 +171,14 @@ public class PlayerController2D : MonoBehaviour
   public void SetStartPos(Vector3 pos)
   {
     startPos = pos;
+  }
+
+  public void StartDeath()
+  {
+    audioSource.PlayOneShot(hurts[Random.Range(0, hurts.Length)]);
+    isDead = true;
+    animator.SetBool("isHurt", isDead);
+    bc.enabled = false;
   }
 
   // Helpers for InputAction callback function

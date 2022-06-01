@@ -9,7 +9,7 @@ public class PlayerAttack : MonoBehaviour
     // Debug.Log("HIT");
     if (other.CompareTag("Player"))
     {
-      Debug.Log("HIT PLAYER");
+      other.GetComponent<PlayerController2D>().StartDeath();
     }
   }
 
