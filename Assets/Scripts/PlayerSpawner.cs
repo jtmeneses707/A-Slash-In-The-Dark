@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerSpawner : MonoBehaviour
 {
-  [SerializeField] private GameObject _PlayerObject;
+  [SerializeField] private GameObject[] _PlayerObject;
   [SerializeField] private PlayerInputManager _InputManager;
   // Start is called before the first frame update
   [SerializeField] private int _PlayerNum = 0;
@@ -31,6 +31,7 @@ public class PlayerSpawner : MonoBehaviour
 
   public void OnPlayerJoined(PlayerInput pi)
   {
+    _InputManager.playerPrefab = _PlayerObject[1];
     _LogicController.AddPlayers(pi.gameObject);
     // _PlayerNum++;
     Debug.Log("PLAYER JOINED");

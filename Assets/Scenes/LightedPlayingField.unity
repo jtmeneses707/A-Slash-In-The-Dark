@@ -1133,7 +1133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8360e343e2828cc4cb9a090db0bd33f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PlayerObject: {fileID: 602780120769091891, guid: bdf5c2f4d67b5af4183b6f3bb20c55f2, type: 3}
+  _PlayerObject:
+  - {fileID: 602780120769091891, guid: bdf5c2f4d67b5af4183b6f3bb20c55f2, type: 3}
+  - {fileID: 602780120769091891, guid: 29aa26d1a7ecf634ab57d8b543942dfb, type: 3}
   _InputManager: {fileID: 743803956}
   _PlayerNum: 0
   _audioClips:

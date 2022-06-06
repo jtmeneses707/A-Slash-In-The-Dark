@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 602780120769091893}
   - component: {fileID: 2340113003482204863}
   m_Layer: 0
-  m_Name: Red Player
+  m_Name: Blue Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ Animator:
   m_GameObject: {fileID: 602780120769091891}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 15955cb93ff4566418518a421bd73a8a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0c3ef03d5647d464690f4930f4401c13, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
