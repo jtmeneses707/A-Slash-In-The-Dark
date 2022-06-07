@@ -61,7 +61,6 @@ public class MusicManager : MonoBehaviour
             {
                 break;
             }
-            Debug.Log(lowPassAmount);
             float newLowPassAmount = lowPassAmount + incrementAmount;
             lowPassAmount = Mathf.Clamp01(newLowPassAmount);
             yield return null;
