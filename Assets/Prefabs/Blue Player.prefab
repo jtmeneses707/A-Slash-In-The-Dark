@@ -186,8 +186,8 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 69f13434-19bc-49a9-86ad-e7dd450a0d10
     m_ActionName: Player/Continue[/XInputControllerWindows/buttonSouth]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard 2
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

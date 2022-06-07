@@ -19,11 +19,20 @@ public class PlayerSpawner : MonoBehaviour
 
   [SerializeField]
   private GameLogicController _LogicController;
+
+  private bool _NoGamepadPresent;
+
+  void Awake()
+  {
+    _NoGamepadPresent = (Gamepad.all.Count == 0);
+    // (Gamepad.all.Count == 0) ? (_NoGamepadPresent = true) : (_NoGamepadPresent = false);
+    // var _NoGamepadPresent
+  }
   void Start()
   {
-    var gamepadCount = Gamepad.all.Count;
-    Debug.Log("GAMEPAD COUNT:" + gamepadCount);
-    if (gamepadCount == 0)
+    // var gamepadCount = Gamepad.all.Count;
+    // Debug.Log("GAMEPAD COUNT:" + gamepadCount);
+    if (_NoGamepadPresent)
     {
       NoGamepadPresent();
     }
@@ -50,13 +59,21 @@ public class PlayerSpawner : MonoBehaviour
     Debug.Log("PLAYER JOINED");
     if (_PlayerNum == 0)
     {
-      _LogicController.LeftPlayerHasJoined();
+      if (!_NoGamepadPresent)
+      {
+        _LogicController.LeftPlayerHasJoined();
+      }
+
     }
 
     if (_PlayerNum == 1)
     {
       pi.gameObject.transform.rotation = new Quaternion(0, 180, 0, 1);
-      _LogicController.RightPlayerHasJoined();
+      if (!_NoGamepadPresent)
+      {
+        _LogicController.RightPlayerHasJoined();
+      }
+
     }
     pi.gameObject.transform.position = _spawnPoints[_PlayerNum];
     _PlayerNum++;
