@@ -123,37 +123,12 @@ public class GameLogicController : MonoBehaviour
         }
         hasPlayedCurStateEvent = true;
         StartCoroutine(StartingAnim());
-        musicPlayer.loop = true;
-        musicPlayer.clip = music[0];
-        musicPlayer.Play();
 
-        // GameObject leftPlayer, rightPlayer;
-        // PlayerController2D left, right;
-        // // Dynamically decide which players are left and right. 
-        // if (players[0].transform.position.x > players[1].transform.position.x)
-        // {
-        //   leftPlayer = players[1];
-        //   rightPlayer = players[0];
-        // }
-        // else
-        // {
-        //   leftPlayer = players[0];
-        //   rightPlayer = players[1];
-        // }
+        // Play looping song. *** 
+        // musicPlayer.loop = true;
+        // musicPlayer.clip = music[0];
+        // musicPlayer.Play();
 
-        // lc = leftPlayer.GetComponent<PlayerController2D>();
-        // rc = rightPlayer.GetComponent<PlayerController2D>();
-
-        // StartCoroutine(StartingB());
-
-        // Debug.Log("LEFT PLAYERS COORDS" + left.transform.position);
-        // Debug.Log("RIGHT PLAYERS COORDS" + right.transform.position);
-
-        // // Start walking players towards stage.
-        // StartCoroutine(left.MoveRightFromStage(2f, 4f));
-        // StartCoroutine(right.MoveLeftFromStage(2f, 4f));
-        // // StartCoroutine(StartingAnimation());
-        // hasPlayedCurStateEvent = true;
       }
     }
 
@@ -189,21 +164,9 @@ public class GameLogicController : MonoBehaviour
       if (totalRoundTime >= initialThunderWarning - 1.5)
       {
         Debug.Log("STOP");
-        musicPlayer.Stop();
-        // musicPlayer.loop = false;
-        // musicPlayer.clip = music[1];
-        // if (!hasPlayedThunderWarning)
-        // {
-        //   musicPlayer.Stop();
-        //   musicPlayer.loop = false;
-        //   musicPlayer.clip = music[1];
-        //   musicPlayer.Play();
-        //   hasPlayedThunderWarning = true;
-        // }
-        // Debug.Log("PLAY SONG");
+
+        // Stop playing looping music. ***
         // musicPlayer.Stop();
-        // musicPlayer.clip = clips[1];
-        // musicPlayer.Play();
 
       }
       if (totalRoundTime >= initialThunderWarning)
@@ -216,8 +179,9 @@ public class GameLogicController : MonoBehaviour
         if (!hasPlayedThunderWarning)
         {
           Debug.Log("PLAY THUNDER");
-          musicPlayer2.PlayOneShot(music[1]);
-          hasPlayedThunderWarning = true;
+          // Play thunder. ***
+          // musicPlayer2.PlayOneShot(music[1]);
+          // hasPlayedThunderWarning = true;
 
         }
       }
