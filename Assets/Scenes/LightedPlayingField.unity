@@ -1373,6 +1373,7 @@ MonoBehaviour:
   music:
   - {fileID: 8300000, guid: fc8c7c6259c0d9a468714f8c5f58e9be, type: 3}
   - {fileID: 8300000, guid: 8e96f4bdc39aa8e4d8943785bd9f8c9c, type: 3}
+  button: {fileID: 1903936986}
 --- !u!114 &743803958
 MonoBehaviour:
   m_ObjectHideFlags: 0

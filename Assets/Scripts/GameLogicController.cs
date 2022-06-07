@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(SceneCommands))]
 public class GameLogicController : MonoBehaviour
@@ -77,6 +78,9 @@ public class GameLogicController : MonoBehaviour
 
   [SerializeField]
   private AudioClip[] music;
+
+  [SerializeField]
+  private GameObject button;
 
 
 
@@ -231,6 +235,7 @@ public class GameLogicController : MonoBehaviour
           player.GetComponent<PlayerController2D>().SetCanMove(false);
           player.GetComponent<Animator>().enabled = false;
         }
+        EventSystem.current.SetSelectedGameObject(button);
         StartCoroutine(ResultsAnim());
       }
 
