@@ -71,13 +71,7 @@ public class GameLogicController : MonoBehaviour
   private SceneCommands sc;
 
   [SerializeField]
-  private AudioSource musicPlayer;
-
-  [SerializeField]
-  private AudioSource musicPlayer2;
-
-  [SerializeField]
-  private AudioClip[] music;
+  private MusicManager musicManager;
 
   [SerializeField]
   private GameObject button;
@@ -92,7 +86,7 @@ public class GameLogicController : MonoBehaviour
     randomRoundTime = baseRoundTime + Random.Range(0f, 5f);
     initialThunderWarning = randomRoundTime - Random.Range(3f, 5f);
     sc = GetComponent<SceneCommands>();
-  }
+    }
 
   // Update is called once per frame
   void FixedUpdate()
@@ -105,7 +99,7 @@ public class GameLogicController : MonoBehaviour
         Debug.Log("PLAYING CLIP");
         announcer.PlayOneShot(clips[0]);
         playedPressToJoin = true;
-      }
+       }
       foreach (var player in players)
       {
         player.GetComponent<PlayerController2D>().enabled = false;
@@ -123,38 +117,15 @@ public class GameLogicController : MonoBehaviour
         }
         hasPlayedCurStateEvent = true;
         StartCoroutine(StartingAnim());
-        musicPlayer.loop = true;
-        musicPlayer.clip = music[0];
-        musicPlayer.Play();
 
-        // GameObject leftPlayer, rightPlayer;
-        // PlayerController2D left, right;
-        // // Dynamically decide which players are left and right. 
-        // if (players[0].transform.position.x > players[1].transform.position.x)
-        // {
-        //   leftPlayer = players[1];
-        //   rightPlayer = players[0];
-        // }
-        // else
-        // {
-        //   leftPlayer = players[0];
-        //   rightPlayer = players[1];
-        // }
 
-        // lc = leftPlayer.GetComponent<PlayerController2D>();
-        // rc = rightPlayer.GetComponent<PlayerController2D>();
-
-        // StartCoroutine(StartingB());
-
-        // Debug.Log("LEFT PLAYERS COORDS" + left.transform.position);
-        // Debug.Log("RIGHT PLAYERS COORDS" + right.transform.position);
-
-        // // Start walking players towards stage.
-        // StartCoroutine(left.MoveRightFromStage(2f, 4f));
-        // StartCoroutine(right.MoveLeftFromStage(2f, 4f));
-        // // StartCoroutine(StartingAnimation());
-        // hasPlayedCurStateEvent = true;
-      }
+        // Play looping song. *** 
+        musicManager.songState = 0;
+        musicManager.lowPassAmount = 0.1f;
+        musicManager.shouldIncrementLowpassAmount = true;
+        StartCoroutine(musicManager.IncrementLowPassCoroutine(8, initialThunderWarning - 5));
+        musicManager.PlayMusic();
+        }
     }
 
     if (curState == State.Play)
@@ -186,25 +157,12 @@ public class GameLogicController : MonoBehaviour
         ProgressState();
       }
 
-      if (totalRoundTime >= initialThunderWarning - 1.5)
+      if (totalRoundTime >= initialThunderWarning - 6)
       {
         Debug.Log("STOP");
-        musicPlayer.Stop();
-        // musicPlayer.loop = false;
-        // musicPlayer.clip = music[1];
-        // if (!hasPlayedThunderWarning)
-        // {
-        //   musicPlayer.Stop();
-        //   musicPlayer.loop = false;
-        //   musicPlayer.clip = music[1];
-        //   musicPlayer.Play();
-        //   hasPlayedThunderWarning = true;
-        // }
-        // Debug.Log("PLAY SONG");
-        // musicPlayer.Stop();
-        // musicPlayer.clip = clips[1];
-        // musicPlayer.Play();
 
+        // Transition music to silence ***
+        musicManager.songState = 1;
       }
       if (totalRoundTime >= initialThunderWarning)
       {
@@ -216,9 +174,9 @@ public class GameLogicController : MonoBehaviour
         if (!hasPlayedThunderWarning)
         {
           Debug.Log("PLAY THUNDER");
-          musicPlayer2.PlayOneShot(music[1]);
-          hasPlayedThunderWarning = true;
-
+        // Play thunder. ***
+        musicManager.shouldIncrementLowpassAmount = false;
+        musicManager.songState = 2;
         }
       }
     }
