@@ -71,13 +71,7 @@ public class GameLogicController : MonoBehaviour
   private SceneCommands sc;
 
   [SerializeField]
-  private AudioSource musicPlayer;
-
-  [SerializeField]
-  private AudioSource musicPlayer2;
-
-  [SerializeField]
-  private AudioClip[] music;
+  private MusicManager musicManager;
 
   [SerializeField]
   private GameObject button;
@@ -92,7 +86,7 @@ public class GameLogicController : MonoBehaviour
     randomRoundTime = baseRoundTime + Random.Range(0f, 5f);
     initialThunderWarning = randomRoundTime - Random.Range(3f, 5f);
     sc = GetComponent<SceneCommands>();
-  }
+    }
 
   // Update is called once per frame
   void FixedUpdate()
@@ -105,7 +99,7 @@ public class GameLogicController : MonoBehaviour
         Debug.Log("PLAYING CLIP");
         announcer.PlayOneShot(clips[0]);
         playedPressToJoin = true;
-      }
+       }
       foreach (var player in players)
       {
         player.GetComponent<PlayerController2D>().enabled = false;
@@ -124,12 +118,15 @@ public class GameLogicController : MonoBehaviour
         hasPlayedCurStateEvent = true;
         StartCoroutine(StartingAnim());
 
-        // Play looping song. *** 
-        // musicPlayer.loop = true;
-        // musicPlayer.clip = music[0];
-        // musicPlayer.Play();
 
-      }
+        // Play looping song. *** 
+        musicManager.songState = 0;
+        musicManager.lowPassAmount = 0;
+        musicManager.lowPassAmount = 0.1f;
+        musicManager.shouldIncrementLowpassAmount = true;
+        StartCoroutine(musicManager.IncrementLowPassCoroutine(8, initialThunderWarning - 5));
+        musicManager.PlayMusic();
+        }
     }
 
     if (curState == State.Play)
@@ -161,13 +158,12 @@ public class GameLogicController : MonoBehaviour
         ProgressState();
       }
 
-      if (totalRoundTime >= initialThunderWarning - 1.5)
+      if (totalRoundTime >= initialThunderWarning - 6)
       {
         Debug.Log("STOP");
 
-        // Stop playing looping music. ***
-        // musicPlayer.Stop();
-
+        // Transition music to silence ***
+        musicManager.songState = 1;
       }
       if (totalRoundTime >= initialThunderWarning)
       {
@@ -179,10 +175,9 @@ public class GameLogicController : MonoBehaviour
         if (!hasPlayedThunderWarning)
         {
           Debug.Log("PLAY THUNDER");
-          // Play thunder. ***
-          // musicPlayer2.PlayOneShot(music[1]);
-          // hasPlayedThunderWarning = true;
-
+        // Play thunder. ***
+        musicManager.shouldIncrementLowpassAmount = false;
+        musicManager.songState = 2;
         }
       }
     }
