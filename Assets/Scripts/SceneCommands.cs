@@ -19,11 +19,11 @@ public class SceneCommands : MonoBehaviour
 
   public void Continue()
   {
-    SceneManager.LoadScene(1);
+    SceneManager.LoadScene(ind + 1);
   }
 
   public void Reset()
   {
-    SceneManager.LoadScene(1);
+    SceneManager.LoadScene(ind);
   }
 }
