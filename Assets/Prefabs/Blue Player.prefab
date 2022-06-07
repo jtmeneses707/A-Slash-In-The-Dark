@@ -135,10 +135,6 @@ MonoBehaviour:
     m_ActionId: 942c7e7f-0679-48b0-b755-f824942b47d8
     m_ActionName: Player/Movement[/DualShock4GamepadHID/leftStick/up,/XInputControllerWindows/leftStick/up,/DualShock4GamepadHID/leftStick/down,/XInputControllerWindows/leftStick/down,/DualShock4GamepadHID/leftStick/left,/XInputControllerWindows/leftStick/left,/DualShock4GamepadHID/leftStick/right,/XInputControllerWindows/leftStick/right,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/DualShock4GamepadHID/dpad/up,/DualShock4GamepadHID/dpad/down,/DualShock4GamepadHID/dpad/left,/DualShock4GamepadHID/dpad/right]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 91261bcd-351e-481b-a97e-44841ee7d465
-    m_ActionName: Player/Jump[/Keyboard/space,/DualShock4GamepadHID/buttonSouth,/XInputControllerWindows/buttonSouth]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 602780120769091894}
         m_TargetAssemblyTypeName: PlayerController2D, Assembly-CSharp
@@ -190,8 +186,8 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 69f13434-19bc-49a9-86ad-e7dd450a0d10
     m_ActionName: Player/Continue[/XInputControllerWindows/buttonSouth]
-  m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Controller
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard 2
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -304,7 +300,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1.04
   MinDistance: 1
-  MaxDistance: 16
+  MaxDistance: 18
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0

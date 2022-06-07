@@ -65,7 +65,7 @@ public class GameLogicController : MonoBehaviour
   private bool hasPlayedThunderWarning = false;
 
   [SerializeField]
-  private Canvas canvas;
+  private GameObject canvas;
 
   private SceneCommands sc;
 
@@ -74,7 +74,7 @@ public class GameLogicController : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    canvas.enabled = false;
+    canvas.SetActive(false);
     startingGlobalIntensity = globalLight.GetComponent<Light2D>().intensity;
     randomRoundTime = baseRoundTime + Random.Range(0f, 5f);
     initialThunderWarning = randomRoundTime - Random.Range(3f, 5f);
@@ -205,21 +205,21 @@ public class GameLogicController : MonoBehaviour
 
     if (curState == State.End)
     {
-      canvas.enabled = true;
-      foreach (var player in players)
-      {
-        var controller = player.GetComponent<PlayerController2D>();
-        if (controller.reset)
-        {
-          print("RESET");
-          sc.Reset();
-        }
-        else if (controller.quit)
-        {
-          print("QUIT");
-          sc.Quit();
-        }
-      }
+      canvas.SetActive(true);
+      // foreach (var player in players)
+      // {
+      //   var controller = player.GetComponent<PlayerController2D>();
+      //   if (controller.reset)
+      //   {
+      //     print("RESET");
+      //     sc.Reset();
+      //   }
+      //   else if (controller.quit)
+      //   {
+      //     print("QUIT");
+      //     sc.Quit();
+      //   }
+      // }
     }
   }
 

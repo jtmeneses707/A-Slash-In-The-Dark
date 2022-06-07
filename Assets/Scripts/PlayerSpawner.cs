@@ -21,12 +21,25 @@ public class PlayerSpawner : MonoBehaviour
   private GameLogicController _LogicController;
   void Start()
   {
+    var gamepadCount = Gamepad.all.Count;
+    Debug.Log("GAMEPAD COUNT:" + gamepadCount);
+    if (gamepadCount == 0)
+    {
+      NoGamepadPresent();
+    }
     // var t = PlayerInput.Instantiate(_PlayerObject, -1, "Keyboard 1");
     // t.gameObject.transform.position = new Vector3(-17f, -7f, 0f);
     // var x = PlayerInput.Instantiate(_PlayerObject, -1, "Controller");
     // x.gameObject.transform.position = new Vector3(17f, -7f, 0f);
 
     // Debug.Log("SPAWNED PLAYERS!");
+  }
+
+  public void NoGamepadPresent()
+  {
+    Debug.Log("NO GAMEPAD PRESENT");
+    PlayerInput.Instantiate(_InputManager.playerPrefab, controlScheme: "Keyboard 1", pairWithDevice: Keyboard.current);
+    PlayerInput.Instantiate(_InputManager.playerPrefab, controlScheme: "Keyboard 2", pairWithDevice: Keyboard.current);
   }
 
   public void OnPlayerJoined(PlayerInput pi)
