@@ -69,6 +69,15 @@ public class GameLogicController : MonoBehaviour
 
   private SceneCommands sc;
 
+  [SerializeField]
+  private AudioSource musicPlayer;
+
+  [SerializeField]
+  private AudioSource musicPlayer2;
+
+  [SerializeField]
+  private AudioClip[] music;
+
 
 
   // Start is called before the first frame update
@@ -110,6 +119,10 @@ public class GameLogicController : MonoBehaviour
         }
         hasPlayedCurStateEvent = true;
         StartCoroutine(StartingAnim());
+        musicPlayer.loop = true;
+        musicPlayer.clip = music[0];
+        musicPlayer.Play();
+
         // GameObject leftPlayer, rightPlayer;
         // PlayerController2D left, right;
         // // Dynamically decide which players are left and right. 
@@ -169,19 +182,39 @@ public class GameLogicController : MonoBehaviour
         ProgressState();
       }
 
+      if (totalRoundTime >= initialThunderWarning - 1.5)
+      {
+        Debug.Log("STOP");
+        musicPlayer.Stop();
+        // musicPlayer.loop = false;
+        // musicPlayer.clip = music[1];
+        // if (!hasPlayedThunderWarning)
+        // {
+        //   musicPlayer.Stop();
+        //   musicPlayer.loop = false;
+        //   musicPlayer.clip = music[1];
+        //   musicPlayer.Play();
+        //   hasPlayedThunderWarning = true;
+        // }
+        // Debug.Log("PLAY SONG");
+        // musicPlayer.Stop();
+        // musicPlayer.clip = clips[1];
+        // musicPlayer.Play();
 
+      }
       if (totalRoundTime >= initialThunderWarning)
       {
+        foreach (var player in players)
+        {
+          player.GetComponent<PlayerController2D>().CanAttack();
+        }
+
         if (!hasPlayedThunderWarning)
         {
-          announcer.volume = 0.5f;
-          announcer.PlayOneShot(clips[5]);
-          announcer.volume = 1f;
+          Debug.Log("PLAY THUNDER");
+          musicPlayer2.PlayOneShot(music[1]);
           hasPlayedThunderWarning = true;
-          foreach (var player in players)
-          {
-            player.GetComponent<PlayerController2D>().CanAttack();
-          }
+
         }
       }
     }
