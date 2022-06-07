@@ -121,7 +121,6 @@ public class GameLogicController : MonoBehaviour
 
         // Play looping song. *** 
         musicManager.songState = 0;
-        musicManager.lowPassAmount = 0;
         musicManager.lowPassAmount = 0.1f;
         musicManager.shouldIncrementLowpassAmount = true;
         StartCoroutine(musicManager.IncrementLowPassCoroutine(8, initialThunderWarning - 5));
